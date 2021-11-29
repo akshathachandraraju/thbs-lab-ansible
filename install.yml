@@ -1,0 +1,61 @@
+---
+- name : install hhtpd packages and list git config
+  hosts: all
+  become: yes #root user going to execute
+  tasks: 
+   - name: apache2
+     apt:
+      name: apache2
+      state: present
+# which apache2
+
+- name: install httpd packages and update sample webpage and start service
+
+  hosts: all
+
+  become: yes # root user going to excute
+
+
+
+  tasks:
+
+    - name: Update all packages to their latest version
+
+      apt:
+
+        name: "*"
+
+        state: latest
+
+
+
+    - name: Install apache2 httpd  (state=present is optional)
+
+      apt:
+
+        name: apache2
+
+        state: present
+
+
+
+    - name: Copy index test page
+
+      copy:
+
+        src: "index.html"
+
+        dest: "/var/www/html/index.html"
+
+        force: yes
+
+
+
+    - name: Restart Apache
+
+      service:
+
+        name: apache2
+
+        state: restarted
+

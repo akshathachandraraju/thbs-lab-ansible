@@ -1,0 +1,9 @@
+---
+- name: looping
+  hosts: myservers
+  tasks:
+   - name: Run commands
+     shell: "{{item}}"
+   loop:
+    - "touch one.txt"
+    - "ls –lrt > log.txt"

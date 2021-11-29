@@ -1,0 +1,18 @@
+---
+- name: Install git on all nodes
+  hosts: all
+  become: yes
+  tasks:
+   - name: git
+     state: present
+     update_cache: yes
+  
+  #looping
+   - name: Add several users
+     ansible.builtin.user:
+      name: "{{item}}"
+      state: present
+    loop:
+     - testuser1
+     - testuser2
+     - akshatha

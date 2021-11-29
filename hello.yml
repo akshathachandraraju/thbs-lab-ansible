@@ -6,3 +6,8 @@
       file:
         path: '/tmp/akshatha.txt'
         state: touch
+# ansible prod -m copy -a 'src=/etc/hosts dest=/tmp'
+    - name: copy ansible hosts file pn every node
+      copy: 
+       src: '/etc/ansible/hosts'
+       dest: '/tmp'   

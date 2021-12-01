@@ -1,0 +1,21 @@
+---
+- name: learning handler service
+  hosts: all
+  become: yes 
+  tasks: 
+   - name: Install apache2
+     apt:
+      name: apache2
+      state: present
+   - name: display apache configs
+     shell:
+      cmd: ls -l
+   - name: install and config done
+     shell: ls -la
+     notify:
+      - restart apache
+  handlers: 
+   - name: restart apache
+     service:
+      name: apache2 
+      state: restarted

@@ -2,12 +2,6 @@
 - name: Install Apache,Docker,Jenkins and Nexus
   hosts: all
   become: true
-  vars:
-    nexus_version: 2.7.0  
-    nexus_download_url: https://sonatype-download.global.ssl.fastly.net/repository/downloads-prod-group/3/nexus-3.29.2-02-unix.tar.gz
-    nexus_download_dest: /tmp/3/nexus-3.29.2-02-unix.tar.gz
-    nexus_extracted_dir: /tmp/nexus_extracted_dir
-    nexus_dir: /usr/local/nexus
   tasks:
     - name: Install latest version of Apache
       apt: 
@@ -86,10 +80,10 @@
       user: 
        name: nexus 
        group: nexus 
+       
+    - name: Download nexus
+      shell: wget https://download.sonatype.com/nexus/oss/nexus-latest-bundle.tar.gz
+      become: yes
       
-
-    - name: download nexus
-      get_url: 
-       url: "{{nexus_download_url}} "
-       dest: "{{nexus_download_dest}}"
-      register: nexus_download
+    - name: Extract nexus
+      shell: tar -xvzf nexus-latest-bundle.tar.gz      
